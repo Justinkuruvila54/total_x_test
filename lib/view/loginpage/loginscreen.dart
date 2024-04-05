@@ -1,7 +1,7 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:total_x_test/view/otp_verificationscreen/otp_verificationscreen.dart';
 
 class Loginscreen extends StatelessWidget {

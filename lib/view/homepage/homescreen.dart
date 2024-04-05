@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,7 +18,71 @@ class _HomescreeenState extends State<Homescreeen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         shape: CircleBorder(side: BorderSide(width: 2)),
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            backgroundColor: Colors.white,
+            context: context,
+            builder: (context) => Padding(
+              padding: const EdgeInsets.all(13.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Add a New User",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Container(
+                      height: 140,
+                      width: double.infinity,
+                      child: Image.asset("assets/images/addusericon.png")),
+                  Text("Name"),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)))),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text("Age"),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  TextFormField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(width: 2)))),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                  const Color.fromARGB(255, 210, 206, 206))),
+                          onPressed: () {},
+                          child: Text("Cancel")),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                  const Color.fromARGB(255, 210, 206, 206))),
+                          onPressed: () {},
+                          child: Text("Save"))
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        },
         child: Icon(
           Icons.add,
           color: Colors.white,
@@ -45,8 +111,10 @@ class _HomescreeenState extends State<Homescreeen> {
             child: Center(
               child: TextField(
                 decoration: InputDecoration(
+                    fillColor: const Color.fromARGB(255, 238, 227, 227),
+                    filled: true,
                     border: OutlineInputBorder(
-                        borderSide: BorderSide(width: 5),
+                        borderSide: BorderSide(width: 5, color: Colors.black),
                         borderRadius: BorderRadius.circular(20)),
                     disabledBorder:
                         OutlineInputBorder(borderSide: BorderSide(width: 1)),
