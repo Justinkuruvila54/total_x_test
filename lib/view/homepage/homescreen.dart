@@ -20,7 +20,6 @@ class _HomescreeenState extends State<Homescreeen> {
         shape: CircleBorder(side: BorderSide(width: 2)),
         onPressed: () {
           showModalBottomSheet(
-            isScrollControlled: true,
             backgroundColor: Colors.white,
             context: context,
             builder: (context) => Padding(
