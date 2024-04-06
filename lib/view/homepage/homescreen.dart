@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:total_x_test/controller/homescreencontroller.dart';
 
 class Homescreeen extends StatefulWidget {
   const Homescreeen({super.key});
@@ -40,6 +42,8 @@ class _HomescreeenState extends State<Homescreeen> {
                     height: 20,
                   ),
                   TextFormField(
+                      controller: Provider.of<Homescreeencontroller>(context)
+                          .nameController,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide: BorderSide(width: 2)))),
@@ -51,6 +55,8 @@ class _HomescreeenState extends State<Homescreeen> {
                     height: 15,
                   ),
                   TextFormField(
+                      controller: Provider.of<Homescreeencontroller>(context)
+                          .ageController,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide: BorderSide(width: 2)))),
