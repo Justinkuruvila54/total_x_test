@@ -71,7 +71,10 @@ class Loginscreen extends StatelessWidget {
                                 builder: (context) => Otp_verificationscreen(),
                               ));
                         },
-                        child: Text("Get OTP")),
+                        child: Text(
+                          "Get OTP",
+                          style: TextStyle(color: Colors.white),
+                        )),
                   ))
                 ],
               )

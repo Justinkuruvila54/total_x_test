@@ -112,7 +112,10 @@ class Otp_verificationscreen extends StatelessWidget {
                                 builder: (context) => Homescreeen(),
                               ));
                         },
-                        child: Text("Verify")),
+                        child: Text(
+                          "Verify",
+                          style: TextStyle(color: Colors.white),
+                        )),
                   ))
                 ],
               )
