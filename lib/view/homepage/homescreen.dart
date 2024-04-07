@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,6 +16,11 @@ class Homescreeen extends StatefulWidget {
 }
 
 class _HomescreeenState extends State<Homescreeen> {
+  CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection("employee");
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,8 +49,7 @@ class _HomescreeenState extends State<Homescreeen> {
                     height: 20,
                   ),
                   TextFormField(
-                      controller: Provider.of<Homescreeencontroller>(context)
-                          .nameController,
+                      controller: nameController,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide: BorderSide(width: 2)))),
@@ -55,8 +61,7 @@ class _HomescreeenState extends State<Homescreeen> {
                     height: 15,
                   ),
                   TextFormField(
-                      controller: Provider.of<Homescreeencontroller>(context)
-                          .ageController,
+                      controller: ageController,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide: BorderSide(width: 2)))),
@@ -130,34 +135,52 @@ class _HomescreeenState extends State<Homescreeen> {
           ),
           Expanded(
               child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ListView.separated(
-                itemBuilder: (context, index) => Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              AssetImage("assets/images/userimage1.png"),
-                        ),
-                        title: Text(
-                          "Martin Dokidis",
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w500),
-                        ),
-                        subtitle: Text(
-                          "age : 34",
-                          style: TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ),
-                separatorBuilder: (context, index) => SizedBox(
-                      height: 10,
-                    ),
-                itemCount: 10),
-          ))
+                  padding: const EdgeInsets.all(10.0),
+                  child: StreamBuilder(
+                    stream: collectionReference.snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return const Text('Something went wrong');
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Text("Loading");
+                      } else {
+                        return ListView.separated(
+                            itemBuilder: (context, index) {
+                              final QueryDocumentSnapshot<Object?>
+                                  employeesnap = snapshot.data!.docs[index];
+
+                              return Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white),
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                        "assets/images/userimage1.png"),
+                                  ),
+                                  title: Text(
+                                    employeesnap["name"],
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  subtitle: Text(
+                                    "age : ${employeesnap["age"]}",
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) => SizedBox(
+                                  height: 10,
+                                ),
+                            itemCount: snapshot.data!.docs.length);
+                      }
+                    },
+                  )))
         ],
       ),
     );
