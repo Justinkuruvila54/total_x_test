@@ -84,7 +84,12 @@ class _HomescreeenState extends State<Homescreeen> {
                           style: ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll(
                                   const Color.fromARGB(255, 210, 206, 206))),
-                          onPressed: () {},
+                          onPressed: () {
+                            collectionReference.add({
+                              "name": nameController.text,
+                              "age": ageController.text
+                            });
+                          },
                           child: Text("Save"))
                     ],
                   )
